@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mini App GOSAFE</title>
+    <style>
+      body { font-family: Arial; padding: 20px; }
+      input, textarea { margin: 4px; padding: 6px; width: 180px; }
+      button { padding: 6px 12px; }
+      .success { color: green; margin-top: 10px; }
+    </style>
+  </head>
+  <body>
+    <h1>Mini App GOSAFE</h1>
+    <h2>Đăng ký Gọi Tài xế GOSAFE</h2>
+    <form id="gosafeForm">
+      <input type="text" name="name" placeholder="Họ và tên" required />
+      <input type="tel" name="phone" placeholder="Số điện thoại" required />
+      <textarea name="message" placeholder="Bạn cần tài xế ở đâu, khung giờ nào..." required></textarea>
+      <button type="submit">Gửi đăng ký</button>
+    </form>
+    <div id="result" class="success"></div>
+    <script>
+      document.getElementById("gosafeForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        fetch("https://script.google.com/macros/s/AKfycby3iIt_tL3pVVc1Zle2C9XHKpewo7fHcdYEtHfEzQ0SiFl1ZATLaQS2dknTGOu_v-3o4A/exec", {
+          method: "POST",
+          body: formData
+        })
+        .then(res => {
+          document.getElementById("result").innerText = "✅ Gửi thành công! GOSAFE sẽ liên hệ sớm.";
+          this.reset();
+        })
+        .catch(err => {
+          document.getElementById("result").innerText = "❌ Gửi thất bại: " + err;
+        });
+      });
+    </script>
+  </body>
+</html>
